@@ -1,34 +1,31 @@
-import { obtenerJson, calcularProximoFeriado } from "https://cdn.esjs.dev/KYDwDg9gTgLghlABAMwK4DsDGBLC7GZwA2mqRCAClBCNgLYQBiwU2cAJhABTItucBnAJSIA3gChEBPAJiI4AC2hxEAXgJRgCRM0wK4XIZOnpZ8gI8QAgphipia+UqhwAdBABGMYOhZXLhsaYMnLsbDZ2DuqKyu5ePiwAImyBUsGmcnTAAhH2RI4xLnHevlAAstmGiADUiACMxpow0OjavKwcEAKuyNjo7FzGUjx8nSKqAHxDUogjHZyuWQJqqupLuQ4AZJsoowthKhOIBxtEIgA+59NS7fwQi9mIR+u2ecZGAL5AA";
+const password = "ucasal123";
 
-const password = "ucasal123"; 
+const loginButton = document.getElementById("loginButton");
+const passwordInput = document.getElementById("password");
+const feriadoInfo = document.getElementById("feriadoInfo");
+const motivo = document.getElementById("motivo");
+const fecha = document.getElementById("fecha");
 
-const obtenerFeriados = async (year) => {
-  const url = `https://nolaborables.com.ar/api/v2/feriados/${year}`;
-  try {
-    const feriados = await obtenerJson(url);
-    return feriados;
-  } catch (error) {
-    throw error;
+loginButton.addEventListener("click", () => {
+  const enteredPassword = passwordInput.value;
+  if (enteredPassword === password) {
+    feriadoInfo.style.display = "block";
+    passwordInput.value = "";
+    mostrarProximoFeriado();
+  } else {
+    alert("Contraseña incorrecta");
   }
-};
+});
 
-const mostrarProximoFeriado = async () => {
-  try {
-    const year = 2023; 
-    const feriados = await obtenerFeriados(year);
-
-    // Solicitar contraseña
-    const contraseña = prompt("Ingresa tu contraseña:");
-    if (contraseña === password) {
-      const proximoFeriado = calcularProximoFeriado(feriados);
-      console.log("Próximo Feriado:", proximoFeriado);
-    } else {
-      alert("Contraseña incorrecta. No puedes ver la información.");
-    }
-  } catch (error) {
-    console.error("Error al obtener el próximo feriado:", error);
-  }
-};
-
-
-mostrarProximoFeriado();
+function mostrarProximoFeriado() {
+  fetch("https://nolaborables.com.ar/api/v2/feriados/2023")
+    .then((response) => response.json())
+    .then((data) => {
+      const proximoFeriado = data[0];
+      motivo.textContent = `Motivo: ${proximoFeriado.motivo}`;
+      fecha.textContent = `Fecha: ${proximoFeriado.fecha}`;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
