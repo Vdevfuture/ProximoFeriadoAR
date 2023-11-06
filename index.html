@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Next Holiday in Argentina</title>
 </head>
 <body>
-  <div id="app">
-    <h1>Aplicación de Feriados</h1>
-    <div id="login">
-      <input type="password" id="password" placeholder="Ingresa tu contraseña">
-      <button id="loginButton">Iniciar sesión</button>
+    <div class="container">
+        <h1>Next Holiday in Argentina</h1>
+        <div id="app">
+            <div id="loginForm">
+                <input type="password" id="password" placeholder="Enter your password">
+                <button id="loginButton">Log in</button>
+            </div>
+            <div id="feriadoInfo" style="display: none;">
+                <h2>Next Holiday:</h2>
+                <p id="motivo"></p>
+                <p id="fecha"></p>
+            </div>
+        </div>
     </div>
-    <div id="feriadoInfo" style="display: none;">
-      <h2>Próximo Feriado:</h2>
-      <p id="motivo"></p>
-      <p id="fecha"></p>
-    </div>
-  </div>
-  <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
